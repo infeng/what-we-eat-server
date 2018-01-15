@@ -5,6 +5,11 @@ const Order = new mongoose.Schema({
   createDate: Date,
 });
 
-const orderModel = mongoose.model('orders', Order);
+export interface OrderDoc extends mongoose.Document {
+  menu: any;
+  createDate: Date;
+}
+
+const orderModel = mongoose.model<OrderDoc>('orders', Order);
 
 export default orderModel;

@@ -6,6 +6,12 @@ const Menu = new mongoose.Schema({
   price: Number,
 });
 
-const menuModel = mongoose.model('menus', Menu);
+export interface MenuDoc extends mongoose.Document {
+  type: number;
+  name: string;
+  price: number;
+}
+
+const menuModel = mongoose.model<MenuDoc>('menus', Menu);
 
 export default menuModel;

@@ -41,9 +41,9 @@ router.get('/getTodayOrder', async(req, res, next) => {
     });
     const orders = data.map(item => {
       return {
-        name: item['menu'].name,
-        price: item['menu'].price,
-        createDate: item['createDate'],
+        name: item.menu.name,
+        price: item.menu.price,
+        createDate: item.createDate,
       };
     });
     res.json(createRes(0, {
