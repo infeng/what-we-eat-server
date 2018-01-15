@@ -4,7 +4,8 @@
     "target": "es6",
     "allowSyntheticDefaultImports": true,
     "outDir": "dist",
-    "moduleResolution": "node"
+    "moduleResolution": "node",
+    "sourceMap": true
   },
   "include": [
     "src/**/*"

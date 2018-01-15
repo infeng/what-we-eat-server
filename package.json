@@ -4,7 +4,7 @@
   "description": "我们吃什么后端服务",
   "main": "index.js",
   "scripts": {
-    "start": "node dist/index.js",
+    "start": "nodemon --inspect dist/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -18,13 +18,19 @@
   },
   "homepage": "https://github.com/infeng/what-we-eat-server#readme",
   "dependencies": {
+    "bluebird": "^3.5.1",
+    "body-parser": "^1.18.2",
     "cheerio": "^1.0.0-rc.2",
     "express": "^4.16.2",
+    "moment": "^2.20.1",
+    "mongoose": "^5.0.0-rc1",
+    "nodemon": "^1.14.11",
     "request": "^2.83.0",
     "request-promise": "^4.2.2"
   },
   "devDependencies": {
     "@types/express": "^4.0.39",
+    "@types/mongoose": "^4.7.32",
     "tslint": "^5.8.0"
   }
 }
