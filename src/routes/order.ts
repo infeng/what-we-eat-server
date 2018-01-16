@@ -30,24 +30,27 @@ router.post('/', async(req, res, next) => {
 
 router.get('/getTodayOrder', async(req, res, next) => {
   try {
-    const data = await order.find({
+    const data = await order.aggregate(([{
+      $lookup: {
+        from: 'menus',
+        localField: 'menu',
+        foreignField: '_id',
+        as: 'menuDetail',
+      },
+    }, {
+      $replaceRoot: { newRoot: { $mergeObjects: [{ $arrayElemAt: [ "$menuDetail", 0 ] }, "$$ROOT"] } },
+    }])).match({
       createDate: {
         $gte: new Date(moment().set('hour', 0).set('minute', 0).set('second', 0).toString()),
         $lte: new Date(moment().set('hour', 23).set('minute', 59).set('second', 59).toString()),
       },
-    }).populate({
-      path: 'menu',
-      select: 'name price',
-    });
-    const orders = data.map(item => {
-      return {
-        name: item.menu.name,
-        price: item.menu.price,
-        createDate: item.createDate,
-      };
-    });
+    }).group({
+      _id: '$menu',
+      name: { $first: '$name' },
+      totalPrice: { $sum: '$price' },
+    }).exec();
     res.json(createRes(0, {
-      data: orders,
+      data: data,
     }));
   }catch(err) {
     next(new Error(log('database', err.message)));
